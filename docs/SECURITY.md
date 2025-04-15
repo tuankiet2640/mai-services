@@ -34,7 +34,7 @@ If you discover a security vulnerability, please report it by emailing the proje
 - Regular audits are performed to ensure compliance with security policies.
 
 ## Contact
-For security issues, contact: [your-email@example.com]
+For security issues, contact: [tuankiet2640@gmail.com]
 
 ---
 
