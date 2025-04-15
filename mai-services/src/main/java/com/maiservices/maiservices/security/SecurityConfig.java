@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> 
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                // Set authentication provider
+                .authenticationProvider(authenticationProvider)
                 // Configure JWT filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 // Configure logout
