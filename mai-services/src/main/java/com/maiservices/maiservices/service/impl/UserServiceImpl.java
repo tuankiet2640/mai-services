@@ -1,11 +1,13 @@
-package com.maiservices.maiservices.service;
+package com.maiservices.maiservices.service.impl;
 
 import com.maiservices.maiservices.dto.UserDto;
 import com.maiservices.maiservices.entity.Role;
 import com.maiservices.maiservices.entity.User;
 import com.maiservices.maiservices.exception.ResourceNotFoundException;
+import com.maiservices.maiservices.mapper.UserMapper;
 import com.maiservices.maiservices.repository.RoleRepository;
 import com.maiservices.maiservices.repository.UserRepository;
+import com.maiservices.maiservices.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,31 +21,35 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public UserDto getUserById(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         return userMapper.toDto(user);
     }
 
+    @Override
     public UserDto getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
         return userMapper.toDto(user);
     }
 
+    @Override
     @Transactional
     public UserDto updateUser(UUID id, UserDto userDto) {
         User existingUser = userRepository.findById(id)
@@ -64,6 +70,7 @@ public class UserService {
         return userMapper.toDto(updatedUser);
     }
 
+    @Override
     @Transactional
     public void deleteUser(UUID id) {
         if (!userRepository.existsById(id)) {
@@ -72,6 +79,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
     @Transactional
     public UserDto assignRoleToUser(UUID userId, UUID roleId) {
         User user = userRepository.findById(userId)
@@ -85,6 +93,7 @@ public class UserService {
         return userMapper.toDto(updatedUser);
     }
 
+    @Override
     @Transactional
     public UserDto removeRoleFromUser(UUID userId, UUID roleId) {
         User user = userRepository.findById(userId)
@@ -103,6 +112,7 @@ public class UserService {
         return userMapper.toDto(updatedUser);
     }
 
+    @Override
     @Transactional
     public UserDto updateUserRoles(UUID userId, Set<UUID> roleIds) {
         User user = userRepository.findById(userId)

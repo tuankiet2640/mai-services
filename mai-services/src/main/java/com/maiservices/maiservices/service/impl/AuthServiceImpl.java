@@ -1,10 +1,12 @@
-package com.maiservices.maiservices.service;
+package com.maiservices.maiservices.service.impl;
 
 import com.maiservices.maiservices.dto.UserDto;
 import com.maiservices.maiservices.dto.auth.AuthResponse;
 import com.maiservices.maiservices.dto.auth.LoginRequest;
 import com.maiservices.maiservices.dto.auth.RefreshTokenRequest;
 import com.maiservices.maiservices.dto.auth.RegisterRequest;
+import com.maiservices.maiservices.mapper.UserMapper;
+import com.maiservices.maiservices.service.AuthService;
 import com.maiservices.maiservices.entity.Role;
 import com.maiservices.maiservices.entity.Token;
 import com.maiservices.maiservices.entity.TokenType;
@@ -25,11 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -39,6 +40,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
+    @Override
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         // Check if username or email already exists
@@ -89,6 +91,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     @Transactional
     public AuthResponse login(LoginRequest request) {
         // Authenticate user
@@ -124,6 +127,7 @@ public class AuthService {
                 .build();
     }
 
+    @Override
     @Transactional
     public AuthResponse refreshToken(RefreshTokenRequest request) {
         String refreshToken = request.getRefreshToken();
