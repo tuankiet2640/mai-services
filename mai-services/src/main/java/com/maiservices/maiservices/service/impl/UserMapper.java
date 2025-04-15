@@ -1,4 +1,4 @@
-package com.maiservices.maiservices.service;
+package com.maiservices.maiservices.service.impl;
 
 import com.maiservices.maiservices.dto.PermissionDto;
 import com.maiservices.maiservices.dto.RoleDto;
