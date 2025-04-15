@@ -1,8 +1,9 @@
-package com.maiservices.maiservices.service;
+package com.maiservices.maiservices.service.impl;
 
 import com.maiservices.maiservices.dto.PermissionDto;
 import com.maiservices.maiservices.entity.Permission;
 import com.maiservices.maiservices.repository.PermissionRepository;
+import com.maiservices.maiservices.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,28 +14,32 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PermissionService {
+public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionRepository permissionRepository;
 
+    @Override
     public List<PermissionDto> getAllPermissions() {
         return permissionRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public PermissionDto getPermissionById(UUID id) {
         Permission permission = permissionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Permission not found with id: " + id));
         return mapToDto(permission);
     }
 
+    @Override
     public PermissionDto getPermissionByName(String name) {
         Permission permission = permissionRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Permission not found with name: " + name));
         return mapToDto(permission);
     }
 
+    @Override
     @Transactional
     public PermissionDto createPermission(PermissionDto permissionDto) {
         // Check if permission name already exists
@@ -50,6 +55,7 @@ public class PermissionService {
         return mapToDto(savedPermission);
     }
 
+    @Override
     @Transactional
     public PermissionDto updatePermission(UUID id, PermissionDto permissionDto) {
         Permission existingPermission = permissionRepository.findById(id)
@@ -68,6 +74,7 @@ public class PermissionService {
         return mapToDto(updatedPermission);
     }
 
+    @Override
     @Transactional
     public void deletePermission(UUID id) {
         Permission permission = permissionRepository.findById(id)
