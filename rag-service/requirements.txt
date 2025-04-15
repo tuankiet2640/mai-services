@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pyjwt
+requests
+sqlalchemy[asyncio]
+asyncpg
+python-dotenv
+openai
