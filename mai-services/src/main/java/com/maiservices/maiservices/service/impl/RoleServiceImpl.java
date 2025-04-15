@@ -1,10 +1,12 @@
-package com.maiservices.maiservices.service;
+package com.maiservices.maiservices.service.impl;
 
 import com.maiservices.maiservices.dto.RoleDto;
 import com.maiservices.maiservices.entity.Permission;
 import com.maiservices.maiservices.entity.Role;
+import com.maiservices.maiservices.mapper.UserMapper;
 import com.maiservices.maiservices.repository.PermissionRepository;
 import com.maiservices.maiservices.repository.RoleRepository;
+import com.maiservices.maiservices.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,30 +18,34 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RoleService {
+public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
     private final UserMapper userMapper;
 
+    @Override
     public List<RoleDto> getAllRoles() {
         return roleRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public RoleDto getRoleById(UUID id) {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Role not found with id: " + id));
         return mapToDto(role);
     }
 
+    @Override
     public RoleDto getRoleByName(String name) {
         Role role = roleRepository.findByName(name)
                 .orElseThrow(() -> new RuntimeException("Role not found with name: " + name));
         return mapToDto(role);
     }
 
+    @Override
     @Transactional
     public RoleDto createRole(RoleDto roleDto) {
         // Check if role name already exists
@@ -55,6 +61,7 @@ public class RoleService {
         return mapToDto(savedRole);
     }
 
+    @Override
     @Transactional
     public RoleDto updateRole(UUID id, RoleDto roleDto) {
         Role existingRole = roleRepository.findById(id)
@@ -73,6 +80,7 @@ public class RoleService {
         return mapToDto(updatedRole);
     }
 
+    @Override
     @Transactional
     public void deleteRole(UUID id) {
         Role role = roleRepository.findById(id)
@@ -86,6 +94,7 @@ public class RoleService {
         roleRepository.deleteById(id);
     }
 
+    @Override
     @Transactional
     public RoleDto assignPermissionToRole(UUID roleId, UUID permissionId) {
         Role role = roleRepository.findById(roleId)
@@ -99,6 +108,7 @@ public class RoleService {
         return mapToDto(updatedRole);
     }
 
+    @Override
     @Transactional
     public RoleDto removePermissionFromRole(UUID roleId, UUID permissionId) {
         Role role = roleRepository.findById(roleId)
@@ -112,6 +122,7 @@ public class RoleService {
         return mapToDto(updatedRole);
     }
 
+    @Override
     @Transactional
     public RoleDto updateRolePermissions(UUID roleId, Set<UUID> permissionIds) {
         Role role = roleRepository.findById(roleId)
