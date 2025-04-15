@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mai-servicedb
+    username: postgres
+    password: 12345678
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: UTC
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# JWT Configuration
+app:
+  jwt:
+    # Secret key for signing JWT
+    secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+    # Token expiration time in ms (24 hours)
+    expiration: 86400000
+    # Refresh token expiration time in ms (7 days)
+    refresh-token-expiration: 604800000

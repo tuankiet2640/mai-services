@@ -1,0 +1,3 @@
+@echo off
+echo Starting MAI Services in development mode...
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
