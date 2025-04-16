@@ -33,9 +33,4 @@ If you discover a security vulnerability, please report it by emailing the proje
 - Security logs are maintained for authentication and authorization events.
 - Regular audits are performed to ensure compliance with security policies.
 
-## Contact
-For security issues, contact: [tuankiet2640@gmail.com]
-
----
-
 _This document should be reviewed and updated regularly to reflect the latest security practices._
