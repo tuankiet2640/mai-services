@@ -1,4 +1,4 @@
-# Mai-service Monorepo
+# Mai
 
 This repository contains the main services and applications for the project:
 
