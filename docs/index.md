@@ -33,7 +33,7 @@ The MAI Platform is a modular AI-powered chat and knowledge management system, c
   - `npm start` – Start dev server
   - `npm test` – Run tests
   - `npm run build` – Production build
-- **Docs:** See [mai-app/README.md](../mai-app/README.md) and [mai-app/docs/API-INTEGRATION.md](../mai-app/docs/API-INTEGRATION.md)
+
 
 ### 2. mai-services (Backend API)
 
