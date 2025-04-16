@@ -1,7 +1,7 @@
 # Security Policy
 
 ## Overview
-This document outlines the security practices, guidelines, and policies for the hai-service monorepo, including mai-services, rag-service, and mai-app.
+This document outlines the security practices, guidelines, and policies for the mai-service monorepo, including mai-services, rag-service, and mai-app.
 
 ## Reporting Vulnerabilities
 If you discover a security vulnerability, please report it by emailing the project maintainer or opening a private issue. Do **not** disclose vulnerabilities publicly until they have been addressed.
